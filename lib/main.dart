@@ -6,7 +6,9 @@ import 'package:timezone/timezone.dart';
 void main() async {
   var byteData = await rootBundle.load('packages/timezone/data/2019b.tzf');
   initializeDatabase(byteData.buffer.asUint8List());
-  runApp(MaterialApp(
+  runApp(MaterialApp(theme: ThemeData.dark().copyWith(
+    scaffoldBackgroundColor: Colors.black
+  ),
     home: HomeScreen(),
   ));
 }
@@ -155,7 +157,7 @@ class SearchTimeZones extends SearchDelegate<String> {
           child: ListTile(
             title: Text(
               suggestion[index],
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
             onTap: () {
               close(context, suggestion[index]);
@@ -165,6 +167,15 @@ class SearchTimeZones extends SearchDelegate<String> {
       },
       itemCount: suggestion.length,
       shrinkWrap: true,
+    );
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      primaryColor: Colors.black,
+
     );
   }
 }
